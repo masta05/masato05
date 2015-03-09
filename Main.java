@@ -9,6 +9,9 @@ import java.sql.*;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
+import java.net.*;
+import java.util.Date;
+import java.text.DateFormat;
 
 
 public class Main extends HttpServlet {
@@ -19,30 +22,48 @@ public class Main extends HttpServlet {
     if (req.getRequestURI().endsWith("/db")) {
       showDatabase(req,resp);
     } else {
-      showHome(req,resp);
+      		showHome(req,resp);
     }
   }
 
   private void showHome(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    resp.getWriter().print("aaaa!");
+    
     resp.setContentType("text/html; charset=UTF-8");
     PrintWriter out = resp.getWriter();
+    resp.setCharacterEncoding("UTF-8");
+    
+    Date date = new Date();
+	//date.getYear()+1990：年
+	//date.getMonth()+1:月
+    //date.getDate()：日
 
+    out.print(date.getYear()+1990+ "年 " +(date.getMonth()+1)+"月" +date.getDate()+ "日\n");
     out.println("<html>");
     out.println("<head>");
-    out.println("<title>サンプル</title>");
+    out.println("<title>サンプル1</title>");
     out.println("</head>");
     out.println("<body>");
 
-    out.println("<p>Sample Page</p>");
-    out.println("<p>サンプルページ</p>");
-
+    out.println("<p>ID:<input type=\"input\" name=\"user\"</p>");
+    out.println("<p>PW:<input type=\"password\" name=\"pass\"</p></br>");
+    out.println("<input type=\"submit\" value=\"ログイン\">");
     out.println("</body>");
     out.println("</html>");
-
+	
+    String user=req.getParameter("user");
+    String pass = req.getParameter("pass");
+    HttpSession session = req.getSession(true);
+    session.setAttribute("user", user);
+    session.setAttribute("pass", pass);
+      	if(user!=null){
+      		
+    	    out.println("Paaaaaaaaaaaaaaaaaaaaaaaaa");
+      	}
     out.close();
   }
+
+
 
   private void showDatabase(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
