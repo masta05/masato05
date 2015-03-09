@@ -56,10 +56,7 @@ public class Main extends HttpServlet {
     HttpSession session = req.getSession(true);
     session.setAttribute("user", user);
     session.setAttribute("pass", pass);
-      	if(user!=null){
-      		
-    	    out.println("Paaaaaaaaaaaaaaaaaaaaaaaaa");
-      	}
+
     out.close();
   }
 
